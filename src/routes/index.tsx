@@ -3,7 +3,7 @@ import Login from "@/pages/auth/login";
 import HealthcareList from "@/pages/dashboard/healthcare";
 import CreateHealthcare from "@/pages/dashboard/healthcare/create";
 import DashboardOverview from "@/pages/dashboard/overview";
-import { Outlet, Route, Routes } from "react-router-dom";
+import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 
 const AppRouter = () => {
   return (
@@ -17,6 +17,7 @@ const AppRouter = () => {
           <Route path=":id" element={<CreateHealthcare />} />
         </Route>
       </Route>
+      <Route path="*" element={<Navigate to="/app" />} />
     </Routes>
   );
 };
