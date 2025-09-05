@@ -61,7 +61,7 @@ export const useFetch = <T>(
         statusCode: number;
       }>;
       const axiosError = error?.response?.data?.message;
-      const axiosErrorMessage = errorMessage ?? axiosError;
+      const axiosErrorMessage = errorMessage ?? axiosError ?? error?.message;
       if (!["error", "all"].includes(hideToast))
         toast.error(axiosErrorMessage);
       onError?.(query.error);

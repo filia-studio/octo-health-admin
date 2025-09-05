@@ -1,0 +1,21 @@
+export type User = {
+  id: number;
+  password: string;
+  last_login: string | null;
+  photo: string | null;
+  email: string;
+  first_name: string;
+  last_name: string;
+  is_active: boolean;
+  is_staff: boolean;
+  is_admin: boolean;
+  is_superuser: boolean;
+  date_joined: string;
+  contact_number: string;
+  address: string;
+  gender: string | null;
+  user_type: string;
+  date_of_birth: string | null;
+  groups: string[];
+  user_permissions: [];
+};

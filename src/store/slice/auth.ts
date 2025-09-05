@@ -1,8 +1,9 @@
+import type { User } from "@/types/user";
 import { type StateCreator } from "zustand";
 
 type IAuth = {
   token: string;
-  details: any;
+  details: User | null;
 }
 
 export type AuthSlice = {
