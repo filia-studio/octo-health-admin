@@ -1,11 +1,24 @@
-export const routes = [
+import type { Route } from "@/types/common";
+
+export const routes: Route[] = [
   {
     path: "/app/healthcare",
     title: "Healthcare",
   },
   {
-    path: "/auth",
-    title: "Logout",
+    title: "Insurance",
+    path: `/app/insurance/list`,
+    subRoutes: [
+      {
+        title: "Insurance List",
+        path: `/app/insurance/list`,
+      },
+      {
+        title: "Onboarded Providers",
+        path: `/app/insurance/onboarded`,
+      },
+      { title: "Unverified Providers", path: `/app/insurance/unverified` },
+    ],
   },
 ];
 

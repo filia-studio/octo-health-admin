@@ -4,6 +4,8 @@ import { cn } from "@/lib/utils";
 import { BsArrowsAngleExpand } from "react-icons/bs";
 import { NavLink } from "react-router-dom";
 import { useStore } from "@/store";
+import { FaArrowRight } from "react-icons/fa";
+import { useState } from "react";
 
 const Sidebar = ({
   isOpen,
@@ -12,7 +14,15 @@ const Sidebar = ({
   isOpen?: boolean;
   toggle: () => void;
 }) => {
+  const [subRoute, setSubRoute] = useState("");
   const { resetAuth } = useStore();
+
+  const subPaths =
+    routes?.find((path) => path.title === subRoute)?.subRoutes ?? [];
+
+  const handleLogout = () => {
+    resetAuth();
+  };
 
   return (
     <section
@@ -25,18 +35,46 @@ const Sidebar = ({
         <img src="/assets/svgs/logo.svg" alt="" className="w-12" />
       </div>
       <div className="py-4 px-5">
-        <p className="text-[0.625rem] text-primary font-bold tracking-[19%]">
-          MENU
+        <p
+          onClick={() => setSubRoute("")}
+          className="text-[0.625rem] text-primary font-bold tracking-[19%] cursor-pointer"
+        >
+          MENU{" "}
+          {subRoute ? (
+            <>
+              <FaArrowRight className="inline text-black size-2 mx-2" />{" "}
+              {subRoute}
+            </>
+          ) : null}
         </p>
-        <div className="flex flex-col gap-10 mt-8">
-          {routes.map(({ path, title }) => (
-            <NavLink
-              to={path}
-              onClick={() => title === "Logout" && resetAuth()}
-            >
-              {title}
-            </NavLink>
-          ))}
+        <div className="w-full mt-8 relative">
+          <div
+            className={cn("w-[200%] flex transition-all duration-300", {
+              "translate-x-0": !subRoute,
+              "-translate-x-1/2": subRoute,
+            })}
+          >
+            <div className="flex flex-col gap-10 w-full">
+              {routes.map(({ title, path, subRoutes }) => (
+                <NavLink
+                  to={path}
+                  onClick={() =>
+                    subRoutes?.length ? setSubRoute(title) : setSubRoute("")
+                  }
+                >
+                  {title}
+                </NavLink>
+              ))}
+              <span className="cursor-pointer" onClick={handleLogout}>
+                Logout
+              </span>
+            </div>
+            <div className="flex flex-col gap-10 w-full">
+              {subPaths.map(({ title, path }) => (
+                <NavLink to={path}>{title}</NavLink>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
       <Button

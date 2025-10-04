@@ -4,8 +4,12 @@ import DataTable, {
 } from "@/components/features/common/data-table";
 import { useFetch } from "@/hooks/use-fetch";
 import type { Healthcare } from "@/types/healthcare";
+import dayjs from "dayjs";
 import { PlusIcon } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import LocalizedFormat from "dayjs/plugin/localizedFormat";
+
+dayjs.extend(LocalizedFormat)
 
 const HealthcareList = () => {
   const navigate = useNavigate();
@@ -31,10 +35,16 @@ const HealthcareList = () => {
     {
       header: "Owner's Email",
       key: "email",
+      cellClassName: "break-all",
     },
     {
       header: "License Number",
       key: "license_number",
+    },
+    {
+      header: "Date Added",
+      key: "created_at",
+      render: (row) => dayjs(row.created_at.split("T")[0]).format("LL"),
     },
   ];
 

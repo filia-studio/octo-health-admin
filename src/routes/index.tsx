@@ -2,6 +2,9 @@ import DashboardLayout from "@/components/features/layouts/dashboard";
 import Login from "@/pages/auth/login";
 import HealthcareList from "@/pages/dashboard/healthcare";
 import CreateHealthcare from "@/pages/dashboard/healthcare/create";
+import InsuranceList from "@/pages/dashboard/insurance/list";
+import OnboardedInsuranceProviders from "@/pages/dashboard/insurance/onboarded";
+import UnverifiedInsuranceProviders from "@/pages/dashboard/insurance/unverified";
 import DashboardOverview from "@/pages/dashboard/overview";
 import { Navigate, Outlet, Route, Routes } from "react-router-dom";
 
@@ -15,6 +18,11 @@ const AppRouter = () => {
           <Route index element={<HealthcareList />} />
           <Route path="create" element={<CreateHealthcare />} />
           <Route path=":id" element={<CreateHealthcare />} />
+        </Route>
+        <Route path="insurance" element={<Outlet />}>
+          <Route path="list" element={<InsuranceList />} />
+          <Route path="onboarded" element={<OnboardedInsuranceProviders />} />
+          <Route path="unverified" element={<UnverifiedInsuranceProviders />} />
         </Route>
       </Route>
       <Route path="*" element={<Navigate to="/app" />} />
